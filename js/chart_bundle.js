@@ -20,26 +20,14 @@ var w = 900,
     playoffTicks = [0, 75, 150, 225, 300, 375],
     dataset = null;
 
-
-d3.csv('./../data/three_point_shooting.csv', function(data) {
-  console.log('first try');
-  console.log(data);
+d3.csv('./data/three_point_shooting.csv', type, function(data) {
+  dataset = data;
+  dataset.forEach(function(el) {
+    el.x = el.season_ts;
+    el.y = el.total_regular_fg3m;
+  })
+  threePointShooting(dataset, true, regularSeasonTicks);
 });
-
-d3.csv('./data/three_point_shooting.csv', function(data) {
-  console.log('second try');
-  console.log(data);
-});
-
-// d3.csv('./../data/three_point_shooting.csv', type, function(data) {
-//   dataset = data;
-//   dataset.forEach(function(el) {
-//     el.x = el.season_ts;
-//     el.y = el.total_regular_fg3m;
-//   })
-//   threePointShooting(dataset, true, regularSeasonTicks);
-// });
-
 
 function threePointShooting(data, dateScale, yTickValues) {
 
@@ -257,9 +245,9 @@ d3.select('span.seasonNum')
     }
   });
 
-
 // Imported code
 
+// ./chart_helper.js
 
 function include(arr, obj) {
   return (arr.indexOf(obj) != -1);
@@ -399,9 +387,7 @@ switch(combination) {
   }
 }
 
-
-
-
+// ./chart_transitions.js
 
 var transitionTime = 1000;
 
@@ -477,7 +463,6 @@ function updateXAxes(xScale) {
     .transition().duration(transitionTime)
     .style('opacity', 1);
 }
-
 
 function updateChartData(data, dateScale, yTickValues) {
 
@@ -576,9 +561,3 @@ function updateYAxes(yAxisG, yScale, yTickValues) {
 
   // yAxisG.selectAll(".tick text").attrTween("x", 4).attrTween("dy", -4);
 }
-
-
-
-
-
-

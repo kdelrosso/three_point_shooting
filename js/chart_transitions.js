@@ -73,7 +73,6 @@ function updateXAxes(xScale) {
     .style('opacity', 1);
 }
 
-
 function updateChartData(data, dateScale, yTickValues) {
 
   let scales = createScales(data, dateScale),
@@ -171,9 +170,3 @@ function updateYAxes(yAxisG, yScale, yTickValues) {
 
   // yAxisG.selectAll(".tick text").attrTween("x", 4).attrTween("dy", -4);
 }
-
-
-
-
-
-

@@ -20,26 +20,14 @@ var w = 900,
     playoffTicks = [0, 75, 150, 225, 300, 375],
     dataset = null;
 
-
-d3.csv('./../data/three_point_shooting.csv', function(data) {
-  console.log('first try');
-  console.log(data);
+d3.csv('./data/three_point_shooting.csv', type, function(data) {
+  dataset = data;
+  dataset.forEach(function(el) {
+    el.x = el.season_ts;
+    el.y = el.total_regular_fg3m;
+  })
+  threePointShooting(dataset, true, regularSeasonTicks);
 });
-
-d3.csv('./data/three_point_shooting.csv', function(data) {
-  console.log('second try');
-  console.log(data);
-});
-
-// d3.csv('./../data/three_point_shooting.csv', type, function(data) {
-//   dataset = data;
-//   dataset.forEach(function(el) {
-//     el.x = el.season_ts;
-//     el.y = el.total_regular_fg3m;
-//   })
-//   threePointShooting(dataset, true, regularSeasonTicks);
-// });
-
 
 function threePointShooting(data, dateScale, yTickValues) {
 
