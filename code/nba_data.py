@@ -1,16 +1,13 @@
 #!/usr/bin/env python
 
-"""
-Setting up the database
------------------------
-
-psql -c "DROP DATABASE IF EXISTS nba;"
-psql -c "CREATE DATABASE nba;"
-"""
-
+from __future__ import division
+import sys
+from os import path
+sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
 import pandas as pd
 from sqlalchemy import create_engine
 from nba_py import player
+from utils.db_utils import sql_to_csv
 
 ENGINE = create_engine('postgresql://kdelrosso@localhost:5432/nba')
 GAME_LOGS_TABLE_NAME = 'game_logs'
@@ -106,7 +103,7 @@ def write_season_totals():
 
     df.to_sql(SEASON_TOTALS_TABLE_NAME, ENGINE, if_exists='replace', index=False)
 
-def main(testing=False):
+def write_data_to_postgres():
     """Write player, season totals, and game logs data to postgres."""
 
     print 'Writing players data to database...'
@@ -124,8 +121,6 @@ def main(testing=False):
             df = all_game_logs(player_ids, s, st)
             write_game_logs_to_database(df)
 
-        if testing:
-            return
-
 if __name__ == "__main__":
-    main(False)
+    # write_data_to_postgres()
+    sql_to_csv('./three_point_shooting.sql', '../data/three_point_shooting_2.csv')
