@@ -37,3 +37,16 @@ def save_query_to_csv(query, filename):
 
     df = run_query(query)
     df.to_csv(filename, index=False)
+
+def sql_to_csv(sql_filename, csv_filename):
+    """Save sql query results as csv.
+
+    Parameters
+    ----------
+    filename: string, .sql file containing a query
+    """
+
+    with open(sql_filename, 'r') as f:
+        query = f.read()
+
+    save_query_to_csv(query, csv_filename)
